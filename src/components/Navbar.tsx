@@ -10,7 +10,6 @@ const navItems = [
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("about");
   
-
   const isClickingRef = useRef(false);
   const timeoutRef = useRef<number | null>(null);
 
@@ -21,15 +20,22 @@ const Navbar = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        
         if (isClickingRef.current) return;
 
-        const visibleSection = entries.find((entry) => entry.isIntersecting);
-        if (visibleSection) {
-          setActiveSection(visibleSection.target.id);
+        // Find all sections currently intersecting, then pick the one with the highest visibility ratio
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleSections.length > 0) {
+          setActiveSection(visibleSections[0].target.id);
         }
       },
-      { rootMargin: "-30% 0px -50% 0px", threshold: 0.25 }
+      { 
+        // Adjusted margins to track screen middle-band more accurately
+        rootMargin: "-20% 0px -35% 0px", 
+        threshold: [0.1, 0.3, 0.5, 0.7] 
+      }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -41,10 +47,8 @@ const Navbar = () => {
     setActiveSection(id);
     isClickingRef.current = true;
 
-   
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-    
     timeoutRef.current = window.setTimeout(() => {
       isClickingRef.current = false;
     }, 800);
@@ -52,9 +56,7 @@ const Navbar = () => {
 
   return (
     <nav className="glass-navbar z-50 max-w-[95vw]">
-      <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar">
-        
-
+      <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto scrollbar-hide">
         {/* NAVIGATION */}
         <div className="flex items-center gap-1 sm:gap-2">
           {navItems.map(({ id, label }) => (
