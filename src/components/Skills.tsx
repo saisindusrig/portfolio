@@ -1,114 +1,48 @@
-import LogoLoop from "./LogoLoop";
-
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiJavascript,
-  SiHtml5,
-  SiCss,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
-  SiGit,
-  SiGithub,
-  SiPython,
+import { skills } from "../data/skills";
+import { 
+  SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiHtml5, SiCss, 
+  SiTailwindcss, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql, 
+  SiGit, SiFirebase, SiPython, SiBootstrap 
 } from "react-icons/si";
+import type { JSX } from "react/jsx-runtime";
 
-const techLogos = [
-  {
-    node: <SiReact />,
-    title: "React",
-    href: "https://react.dev",
-  },
-  {
-    node: <SiNextdotjs />,
-    title: "Next.js",
-    href: "https://nextjs.org",
-  },
-  {
-    node: <SiTypescript />,
-    title: "TypeScript",
-    href: "https://www.typescriptlang.org",
-  },
-  {
-    node: <SiJavascript />,
-    title: "JavaScript",
-    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  },
-  {
-    node: <SiHtml5 />,
-    title: "HTML5",
-    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-  },
-  {
-    node: <SiCss />,
-    title: "CSS3",
-    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-  },
-  {
-    node: <SiTailwindcss />,
-    title: "Tailwind CSS",
-    href: "https://tailwindcss.com",
-  },
-  {
-    node: <SiNodedotjs />,
-    title: "Node.js",
-    href: "https://nodejs.org",
-  },
-  {
-    node: <SiExpress />,
-    title: "Express.js",
-    href: "https://expressjs.com",
-  },
-  {
-    node: <SiMongodb />,
-    title: "MongoDB",
-    href: "https://www.mongodb.com",
-  },
-  {
-    node: <SiPostgresql />,
-    title: "PostgreSQL",
-    href: "https://www.postgresql.org",
-  },
-  {
-    node: <SiGit />,
-    title: "Git",
-    href: "https://git-scm.com",
-  },
-  {
-    node: <SiGithub />,
-    title: "GitHub",
-    href: "https://github.com",
-  },
-  {
-    node: <SiPython />,
-    title: "Python",
-    href: "https://www.python.org",
-  },
-  
-];
+const iconMap: Record<string, JSX.Element> = {
+  "JavaScript": <SiJavascript />,
+  "TypeScript": <SiTypescript />,
+  "Python": <SiPython />,
+  "HTML5": <SiHtml5 />,
+  "CSS3": <SiCss />,
+  "React.js": <SiReact />,
+  "Next.js": <SiNextdotjs />,
+  "Tailwind": <SiTailwindcss />,
+  "Bootstrap": <SiBootstrap />,
+  "Node.js": <SiNodedotjs />,
+  "Express.js": <SiExpress />,
+  "MongoDB": <SiMongodb />,
+  "PostgreSQL": <SiPostgresql />,
+  "Firebase": <SiFirebase />,
+  "Git": <SiGit />,
+};
 
 const Skills = () => {
   return (
-    <section className="w-full py-8">
-      <div className="relative h-[70px] w-full overflow-hidden">
-        <LogoLoop
-          logos={techLogos}
-          speed={70}
-          direction="left"
-          logoHeight={32}
-          gap={50}
-          hoverSpeed={0}
-          scaleOnHover
-          fadeOut
-          fadeOutColor=""
-          ariaLabel="Technologies I work with"
-        />
+    <div className="flex w-full justify-center">
+      <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
+        {skills.map((skill, index) => (
+          <span
+            key={`${skill}-${index}`}
+            className="glass-badge flex items-center gap-2.5 text-sm sm:text-base px-5 py-2 hover:bg-white/10 transition-colors cursor-default"
+          >
+            {iconMap[skill] && (
+              <span className="text-lg opacity-80">
+                {iconMap[skill]}
+              </span>
+            )}
+            <span>{skill}</span>
+          </span>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -1,28 +1,76 @@
+import { useEffect, useState, useRef } from "react";
+
+const navItems = [
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
+
 const Navbar = () => {
-  return (
-    <nav className="top-0 z-50 flex items-center justify-center py-6 glass-navbar">
-      <div>navbar</div>
-  <div className="flex items-center glass-nav-links">
+  const [activeSection, setActiveSection] = useState("about");
+  
+
+  const isClickingRef = useRef(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.getElementById(item.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        
+        if (isClickingRef.current) return;
+
+        const visibleSection = entries.find((entry) => entry.isIntersecting);
+        if (visibleSection) {
+          setActiveSection(visibleSection.target.id);
+        }
+      },
+      { rootMargin: "-30% 0px -50% 0px", threshold: 0.25 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleNavClick = (id: string) => {
+    setActiveSection(id);
+    isClickingRef.current = true;
+
+   
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     
+    timeoutRef.current = window.setTimeout(() => {
+      isClickingRef.current = false;
+    }, 800);
+  };
 
-    <a href="#about" className="glass-nav-links glass-button">
-      about
-    </a>
+  return (
+    <nav className="glass-navbar z-50 max-w-[95vw]">
+      <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar">
+        
 
-    <a href="#projects" className="">
-      projects
-    </a>
+        {/* NAVIGATION */}
+        <div className="flex items-center gap-1 sm:gap-2">
+          {navItems.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={() => handleNavClick(id)}
+              className={activeSection === id ? "glass-nav-active shrink-0" : "glass-nav-inactive shrink-0"}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </nav>
+  );
+};
 
-    <a href="#skills" className="">
-      skills
-    </a>
-
-    <a href="#contact" className="">
-      contact
-    </a>
-  </div>
-</nav>
-  )
-}
-
-export default Navbar
+export default Navbar;

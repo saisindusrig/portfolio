@@ -11,17 +11,18 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+
     title: "3D ShareSpace",
     image: threedsharespace,
     description:
-      "3D ShareSpace is a live 3D model sharing website for browsing, uploading, downloading, and managing free 3D assets.",
+      "3D ShareSpace is a live 3D model sharing website for browsing, uploading, downloading, and managing free 3D assets with 50+ real users using the application organically.",
     tech: ["React", "Vite", "Tailwind CSS", "Firebase"],
     github: "https://github.com/3Dsharespace/3d-model-sharing",
     live: "https://dsharespace-v2.web.app/",
   },
   {
     
-    title: "BOOKD",
+    title: "Bookd",
     image: bookd,
     description:
       "A full-stack book discovery platform where users can explore books, save favorites, and rate their reads.",

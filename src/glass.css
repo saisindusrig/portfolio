@@ -1,606 +1,141 @@
-/* =========================================================
-   GLOBAL GLASS 3D SYSTEM
-========================================================= */
+
 
 :root {
-  --glass-filter: blur(14px) brightness(0.63) saturate(1.9);
-  --glass-color: hsl(189 80% 10% / 0.1);
-  --glass-noise: url("https://www.transparenttextures.com/patterns/egg-shell.png");
-
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-radius: 18px;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08); 
+  --glass-shadow: rgba(0, 0, 0, 0.12); 
 }
 
-
-/* =========================================================
-   3D GLASS BASE
-========================================================= */
-
-.glass3d {
-  position: relative;
-  z-index: 4;
-
-  box-shadow:
-    0 0 0.75px hsl(205 20% 10% / 0.2),
-    0.7px 0.8px 1.2px -0.4px hsl(205 20% 10% / 0.1),
-    1.3px 1.5px 2.2px -0.8px hsl(205 20% 10% / 0.1),
-    2.3px 2.6px 3.9px -1.2px hsl(205 20% 10% / 0.1),
-    3.9px 4.4px 6.6px -1.7px hsl(205 20% 10% / 0.1),
-    6.5px 7.2px 10.9px -2.1px hsl(205 20% 10% / 0.1),
-    8px 9px 14px -2.5px hsl(205 20% 10% / 0.2);
-
-  isolation: isolate;
-}
-
-.glass3d::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  border-radius: inherit;
-  overflow: hidden;
-
-  z-index: 3;
-
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
-
-  background-color: var(--glass-color);
-  background-image: var(--glass-noise);
-
-  background-size: 100px;
-  background-repeat: repeat;
-}
-
-.glass3d::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  border-radius: inherit;
-  overflow: hidden;
-
-  z-index: 5;
-
-  box-shadow:
-    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
-    inset 4px 4px 2px -6px hsl(205 20% 90% / 0.3),
-    inset 1.5px 1.5px 1.5px -0.75px hsl(205 20% 90% / 0.15),
-    inset 1.5px 1.5px 0.25px hsl(205 20% 90% / 0.03),
-    inset 0 0 0.25px 0.5px hsl(205 20% 90% / 0.03);
-}
-
-.glass3d > * {
-  position: relative;
-  z-index: 6;
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
+/* ================================
+   NAVBAR (Liquid Glass)
+================================ */
 
 .glass-navbar {
-  position: sticky;
-  top: 28px;
-  z-index: 50;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  
+  padding: 8px 16px; 
+  border-radius: 999px; 
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 100%;
-  min-height: 72px;
-
-  padding: 10px 12px 10px 22px;
-
+  background: rgba(15, 15, 18, 0.65);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
 
-  background: transparent;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
 
-  overflow: hidden;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15); 
 }
 
-.glass-navbar::before {
-  border-radius: inherit;
-}
+/* ================================
+   ACTIVE NAVIGATION ITEM
+================================ */
+/* ================================
+   ACTIVE & INACTIVE NAVIGATION ITEMS
+================================ */
 
-.glass-navbar::after {
-  border-radius: inherit;
-}
-
-
-/* =========================================================
-   NAVBAR LINKS
-========================================================= */
-
-.glass-nav-links {
-  display: flex;
+.glass-nav-active,
+.glass-nav-inactive {
+  display: inline-flex;
   align-items: center;
-  gap: 34px;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+
+  font-size: 14px; 
 }
 
-.glass-nav-link {
-  color: rgba(255, 255, 255, 0.55);
-
-  font-size: 16px;
-  font-weight: 600;
-
-  text-decoration: none;
-
-  transition:
-    color 180ms ease,
-    opacity 180ms ease;
+.glass-nav-active {
+  padding: 0 16px;
+  color: #000000;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.glass-nav-link:hover {
-  color: rgba(255, 255, 255, 0.95);
+.glass-nav-inactive {
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
+.glass-nav-inactive:hover {
+  color: #ffffff;
+}
 
-/* =========================================================
-   PRIMARY BUTTON
-========================================================= */
+/* DESKTOP SIZING */
+@media (min-width: 640px) {
+  .glass-nav-active {
+    padding: 0 20px;
+    font-size: 16px;
+  }
+  .glass-nav-inactive {
+    padding: 0 16px;
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   GLASS BUTTON (For Project Links)
+================================ */
 
 .glass-button {
   position: relative;
-  z-index: 4;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 46px;
-  padding: 0 25px;
-
-  color: rgba(255, 255, 255, 0.9);
-
-  background: transparent;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-
-  font-size: 15px;
-  font-weight: 600;
-
-  text-decoration: none;
-
-  overflow: hidden;
-
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease;
-}
-
-.glass-button::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 3;
-
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
-
-  background-color: var(--glass-color);
-  background-image: var(--glass-noise);
-
-  background-size: 100px;
-  background-repeat: repeat;
-
-  border-radius: inherit;
-}
-
-.glass-button::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 5;
-
-  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: rgba(255, 255, 255, 0.85);
+  
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   box-shadow:
-    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
-    inset 4px 4px 2px -6px hsl(205 20% 90% / 0.3),
-    inset 1.5px 1.5px 1.5px -0.75px hsl(205 20% 90% / 0.15),
-    inset 1.5px 1.5px 0.25px hsl(205 20% 90% / 0.03);
-}
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 5px 20px rgba(0, 0, 0, 0.15);
 
-.glass-button > * {
-  position: relative;
-  z-index: 6;
+  transition: all 0.25s ease;
 }
 
 .glass-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.20);
 }
 
-.glass-button:active {
-  transform: translateY(0);
+/* ================================
+   SEAMLESS PROJECT MASK
+================================ */
+
+.glass-showcase-mask {
+  /* This replaces the solid black background. It is highly blurred to obscure the previous project, but remains translucent to feel open and free. */
+  background: rgba(15, 15, 18, 0.4);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
 }
 
+/* ================================
+   GLASS BADGE (Skills tags)
+================================ */
 
-/* =========================================================
-   DARK / SECONDARY BUTTON
-========================================================= */
-
-.glass-button-dark {
+.glass-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  gap: 7px;
-
-  min-height: 38px;
-  padding: 0 14px;
-
-  color: rgba(255, 255, 255, 0.82);
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 11px;
-
-  font-size: 13px;
+  min-height: 44px; 
+  padding: 0 10px;
+  border-radius: 12px; 
+  font-size: 14px; 
   font-weight: 500;
-
-  text-decoration: none;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  transition:
-    background 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.glass-button-dark:hover {
-  color: white;
-
+  color: rgba(255, 255, 255, 0.85);
   background: rgba(255, 255, 255, 0.08);
-
-  border-color: rgba(255, 255, 255, 0.2);
-
-  transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   PROJECT CARD
-========================================================= */
-
-.glass-card {
-  position: relative;
-  z-index: 4;
-
-  overflow: hidden;
-
-  background: transparent;
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
-
-  box-shadow:
-    0 0 0.75px hsl(205 20% 10% / 0.2),
-    0.7px 0.8px 1.2px -0.4px hsl(205 20% 10% / 0.1),
-    1.3px 1.5px 2.2px -0.8px hsl(205 20% 10% / 0.1),
-    2.3px 2.6px 3.9px -1.2px hsl(205 20% 10% / 0.1),
-    3.9px 4.4px 6.6px -1.7px hsl(205 20% 10% / 0.1),
-    6.5px 7.2px 10.9px -2.1px hsl(205 20% 10% / 0.1),
-    8px 9px 14px -2.5px hsl(205 20% 10% / 0.2);
-
-  isolation: isolate;
-
-  transition:
-    transform 220ms ease,
-    border-color 220ms ease;
-}
-
-.glass-card::before {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 3;
-
-  -webkit-backdrop-filter: var(--glass-filter);
-  backdrop-filter: var(--glass-filter);
-
-  background-color: var(--glass-color);
-  background-image: var(--glass-noise);
-
-  background-size: 100px;
-  background-repeat: repeat;
-}
-
-.glass-card::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: 5;
-
-  box-shadow:
-    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
-    inset 4px 4px 2px -6px hsl(205 20% 90% / 0.3),
-    inset 1.5px 1.5px 1.5px -0.75px hsl(205 20% 90% / 0.15),
-    inset 1.5px 1.5px 0.25px hsl(205 20% 90% / 0.03),
-    inset 0 0 0.25px 0.5px hsl(205 20% 90% / 0.03);
-}
-
-.glass-card > * {
-  position: relative;
-  z-index: 6;
-}
-
-.glass-card:hover {
-  transform: translateY(-3px);
-
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-
-/* =========================================================
-   PROJECT IMAGE
-========================================================= */
-
-.glass-card-image {
-  width: 100%;
-
-  aspect-ratio: 16 / 9;
-
-  object-fit: cover;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-
-/* =========================================================
-   TAGS / SKILLS
-========================================================= */
-
-.glass-tag {
-  display: inline-flex;
-  align-items: center;
-
-  padding: 5px 9px;
-
-  color: rgba(255, 255, 255, 0.58);
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid rgba(255, 255, 255, 0.075);
-  border-radius: 8px;
-
-  font-size: 11px;
-  line-height: 1;
-
+  border: 1px solid var(--glass-border);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-
-/* =========================================================
-   ARROW BUTTONS
-========================================================= */
-
-.glass-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 42px;
-  height: 42px;
-
-  color: rgba(255, 255, 255, 0.78);
-
-  background: rgba(20, 17, 26, 0.35);
-
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  border-radius: 50%;
-
-  box-shadow:
-    0 0 0.75px hsl(205 20% 10% / 0.2),
-    3px 4px 10px rgba(0, 0, 0, 0.18);
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  transition:
-    background 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
-}
-
-.glass-arrow:hover {
-  background: rgba(40, 34, 48, 0.55);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.glass-arrow:active {
-  transform: scale(0.95);
-}
-
-
-/* =========================================================
-   CONTACT INPUT
-========================================================= */
-
-.glass-input {
-  width: 100%;
-  min-height: 58px;
-
-  padding: 0 18px;
-
-  color: rgba(255, 255, 255, 0.9);
-
-  background:
-    rgba(255, 255, 255, 0.035)
-    url("https://www.transparenttextures.com/patterns/egg-shell.png");
-
-  background-size: 100px;
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-
-  outline: none;
-
-  backdrop-filter: blur(14px) brightness(0.63) saturate(1.9);
-  -webkit-backdrop-filter: blur(14px) brightness(0.63) saturate(1.9);
-
-  box-shadow:
-    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
-    inset 1.5px 1.5px 1.5px -0.75px hsl(205 20% 90% / 0.15),
-    2px 3px 8px rgba(0, 0, 0, 0.12);
-
-  font-size: 1rem;
-
-  transition:
-    background 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease;
-}
-
-.glass-input::placeholder {
-  color: rgba(255, 255, 255, 0.42);
-}
-
-.glass-input:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-.glass-input:focus {
-  border-color: rgba(255, 255, 255, 0.28);
-
-  background-color: rgba(255, 255, 255, 0.055);
-
-  box-shadow:
-    0 0 0 3px rgba(255, 255, 255, 0.035),
-    inset 2px 2px 1px -3px hsl(205 20% 90% / 0.8),
-    0 5px 15px rgba(0, 0, 0, 0.15);
-}
-
-textarea.glass-input {
-  padding-top: 16px;
-  padding-bottom: 16px;
-
-  resize: none;
-}
-
-
-/* =========================================================
-   SOCIAL ICONS
-========================================================= */
-
-.glass-icon {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 46px;
-  height: 46px;
-
-  color: rgba(255, 255, 255, 0.8);
-
-  background: rgba(255, 255, 255, 0.035);
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  box-shadow:
-    inset 1.5px 1.5px 1px rgba(255, 255, 255, 0.12),
-    3px 5px 12px rgba(0, 0, 0, 0.12);
-
-  font-size: 18px;
-
-  transition:
-    transform 200ms ease,
-    background 200ms ease,
-    border-color 200ms ease;
-}
-
-.glass-icon:hover {
-  transform: translateY(-3px);
-
-  background: rgba(255, 255, 255, 0.07);
-
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-
-/* =========================================================
-   PAGE BACKGROUND
-========================================================= */
-
-.glass-page {
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(87, 65, 105, 0.18),
-      transparent 38%
-    ),
-    #0d0b10;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 640px) {
-  .glass-navbar {
-    top: 16px;
-
-    min-height: 64px;
-
-    padding-left: 16px;
-
-    border-radius: 17px;
-  }
-
-  .glass-nav-links {
-    gap: 16px;
-  }
-
-  .glass-nav-link {
-    font-size: 14px;
-  }
-
-  .glass-button {
-    min-height: 42px;
-
-    padding: 0 17px;
-
-    border-radius: 12px;
-  }
 }

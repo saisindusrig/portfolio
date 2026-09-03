@@ -1,40 +1,17 @@
-export const skills = {
-  Languages: [
-    "JavaScript",
-    "TypeScript",
-    "Java",
-    "Python",
-    "SQL",
-    "HTML5",
-    "CSS3",
-    "SQL"
-  ],
-
-  Frontend: [
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "Bootstrap",
-    "Vite",
-  ],
-
-  Backend: [
-    "Node.js",
-    "Express.js",
-    "REST APIs",
-    "JWT",
-  ],
-
-  Databases: [
-    "MongoDB",
-    "PostgreSQL",
-    "Firebase",
-  ],
-
-  Tools: [
-    "Git",
-    "GitHub",
-    "Vercel",
-    "Render",
-  ],
-};
+export const skills = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "TypeScript",
+  "Python",
+  "React.js",
+  "Next.js",
+  "Tailwind",
+  "Bootstrap",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "PostgreSQL",
+  "Firebase",
+  "Git",
+];

@@ -1,145 +1,88 @@
-import { useRef } from "react";
 import Navbar from "../components/Navbar";
-import ProjectCard from "../components/ProjectCard";
+import ProjectShowcase from "../components/ProjectShowcase";
 import { projects } from "../data/projects";
 import Skills from "../components/Skills";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Contact from "../components/Contact";
+
+
 const Home = () => {
-  const projectsRef = useRef<HTMLDivElement>(null);
+  return (
+    <main className="min-h-screen w-full pb-20">
+      <Navbar />
 
-  const scrollProjects = (direction: "left" | "right") => {
-    if (!projectsRef.current) return;
 
-    const firstCard = projectsRef.current.firstElementChild as HTMLElement;
-
-    if (!firstCard) return;
-
-    const cardWidth = firstCard.offsetWidth;
-    const gap = 16;
-
-    projectsRef.current.scrollBy({
-      left: direction === "right"
-        ? cardWidth + gap
-        : -(cardWidth + gap),
-      behavior: "smooth",
-    });
-  };
-return (
-  <main className="mx-auto max-w-5xl">
-    <Navbar />
-
-    <div className="mx-auto w-auto max-w-5xl">
-      
-      {/* HERO */}
-      <section className="py-10 sm:py-24">
-        <p className="font-heading text-lg">
-          hey there, I'm Sindu
-        </p>
-
-        <p className="mt-8 text-base leading-7">
-          I'm a full-stack developer with 1+ year of professional
-          experience building web applications. I enjoy working across
-          the stack, from designing responsive React interfaces to
-          building APIs, authentication systems and database-driven
-          features.
-        </p>
-      </section>
-
-      {/* PROJECTS */}
       <section
-        className="scroll-mt-24 py-10"
-        id="projects"
+        id="about"
+        className="mx-auto flex max-w-3xl min-h-[70vh] scroll-mt-32 flex-col items-center justify-center px-6 sm:px-8 py-24 sm:py-32 text-center"
       >
-        <h2 className="pb-4 font-heading text-2xl font-semibold">
-          projects
-        </h2>
-
-        <div className="relative">
-          <button
-            onClick={() => scrollProjects("left")}
-            className="
-              absolute left-2 top-1/2 z-10
-              flex h-11 w-11 -translate-y-1/2
-              items-center justify-center
-              rounded-full border border-white/15
-              bg-black/20 backdrop-blur-md
-              transition-all duration-200
-              hover:bg-black/30
-              sm:hidden
-            "
-            aria-label="Previous project"
-          >
-            <ChevronLeft size={22} strokeWidth={1.5} />
-          </button>
-
-          <div
-            ref={projectsRef}
-            className="
-              flex gap-4
-              overflow-x-auto
-              scroll-smooth
-              snap-x snap-mandatory
-              scrollbar-hide
-            "
-          >
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                className="
-                  w-[300px]
-                  shrink-0
-                  snap-start
-                  sm:w-[340px]
-                "
-              >
-                <ProjectCard project={project} />
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => scrollProjects("right")}
-            className="
-              absolute right-2 top-1/2 z-10
-              flex h-11 w-11 -translate-y-1/2
-              items-center justify-center
-              rounded-full border border-white/15
-              bg-black/20 backdrop-blur-md
-              transition-all duration-200
-              hover:bg-black/30
-              sm:hidden
-            "
-            aria-label="Next project"
-          >
-            <ChevronRight size={22} strokeWidth={1.5} />
-          </button>
+        <div className="pt-18 pb-3">
+          <span className="text-sm font-medium uppercase tracking-widest text-gray-400">
+            SAI SINDU SRI GOPIEREDDY
+          </span>
+          <h1 className="font-body text-6xl sm:text-7xl font-bold py-6 sm:py-10 tracking-tight text-white">
+            I turn ideas into <span className="italic bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 bg-clip-text text-transparent">digital experiences</span>.
+          </h1>
+          <p className="text-xl sm:text-lg sm:leading-relaxed text-gray-400">
+            I'm a <span className="font-bold">full-stack developer</span> with 1+ year of professional experience building web applications. I enjoy working across the stack, from designing responsive React interfaces to building APIs, authentication systems and database-driven features.
+          </p>
         </div>
       </section>
 
-      {/* SKILLS */}
-      <section
-        className="py-16"
-        id="skills"
-      >
-        <h2 className="pb-4 font-heading text-2xl font-semibold">
-          skills
-        </h2>
 
-        <Skills />
-      </section>
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-24 px-6 sm:px-12 lg:px-16">
+        
+        {/* PROJECTS */}
+        <section id="projects" className="scroll-mt-32">
+          <div className="mb-10">
+            <h2 className="font-heading text-3xl font-semibold tracking-tight text-white">
+              Projects
+            </h2>
+            <p className="mt-2 text-base text-gray-500">
+              A selection of things I've built.
+            </p>
+          </div>
+          
 
-      {/* CONTACT */}
-      <section
-        id="contact"
-        className="scroll-mt-24 py-16 pb-32"
-      >
-        <Contact />
-      </section>
+          <div className="relative flex w-full flex-col">
+            {projects.map((project, index) => (
+              <ProjectShowcase 
+                key={project.title} 
+                index={index} 
+                project={project} 
+              />
+            ))}
+          </div>
+        </section>
 
-    </div>
-  </main>
-);
+        {/* SKILLS */}
+        <section id="skills" className="scroll-mt-32">
+          <div className="mb-10">
+            <h2 className="font-heading text-3xl font-semibold tracking-tight text-white">
+              Skills
+            </h2>
+            <p className="mt-2 text-base text-gray-500">
+              Technologies I work with.
+            </p>
+          </div>
+          <Skills />
+        </section>
+
+        {/* CONTACT */}
+        <section id="contact" className="scroll-mt-32">
+          <div className="mb-10">
+            <h2 className="font-heading text-3xl font-semibold tracking-tight text-white">
+              Contact
+            </h2>
+            <p className="mt-2 text-base text-gray-500">
+              Have a project in mind? Let's talk.
+            </p>
+          </div>
+          <Contact />
+        </section>
+      </div>
+    </main>
+   
+  );
 };
 
 export default Home;
