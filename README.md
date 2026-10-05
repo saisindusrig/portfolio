@@ -1,75 +1,34 @@
-# React + TypeScript + Vite
+# Sai Sindu Sri — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple editorial portfolio built with React, TypeScript and Vite. A scrolling page presents selected projects, background, skills and contact links. Project notes expand inline using keyboard-accessible buttons, with animated panels and reduced-motion support.
 
-Currently, two official plugins are available:
+## Typography and styling
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Neue Montreal: locally served regular and medium fonts in `public/fonts`, from the supplied font archive.
+- Libre Baskerville: regular and italic headings, loaded through Google Fonts. Georgia is the fallback if Google Fonts is unavailable.
+- Plain CSS in `src/index.css`, with responsive layouts and reduced-motion support.
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm install
+npm run dev
+npm run verify
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+`verify` runs lint, component tests and the production build. `preview` serves the production build locally.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Editing
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `src/App.tsx`: page sections and navigation.
+- `src/components/ProjectCard.tsx`: project previews and expandable technical notes.
+- `src/data/portfolio.ts`: profile, experience and skills.
+- `src/data/projects.ts`: project content, images and links.
+- `src/index.css`: layout, colors and typography.
 
-```
+Navigation uses standard section links such as `#projects`, `#about` and `#contact`. Individual projects have anchors such as `#bookd`.
+
+Warrant currently has a text placeholder. Add an image import, `image`, and `imageAlt` to its project record to show the screenshot. Its wider project layout stays in place. Project implementation notes were checked against local repositories; “Next iteration” describes proposed work, not completed features. The 50+ user figure for 3D ShareSpace was supplied by the owner.
+
+Email and résumé links are shown only when `profile.email` and `profile.resumeUrl` are set. LinkedIn and GitHub remain available for contact.
