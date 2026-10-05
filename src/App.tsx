@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ProjectCard } from './components/ProjectCard';
 import {
-  aboutLines,
   experience,
   profile,
   skillGroups,
