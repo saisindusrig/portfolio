@@ -44,12 +44,16 @@
 
 .about-inline-link {
   color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  border-bottom: 1px solid currentColor;
+
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
 }
 
 .about-inline-link:hover {
-  text-decoration-thickness: 2px;
+  background: var(--text);
+  color: var(--background);
 }
 /* =========================================================
    RESET
@@ -1011,42 +1015,34 @@ figcaption {
    CONTACT
 ========================================================= */
 
-/* =========================================================
-   CONTACT
-========================================================= */
-
 .contact {
   padding-top: 64px;
 }
 
-.contact-layout {
-  display: grid;
+.contact h2 {
+  margin: 28px 0 32px;
 
-  grid-template-columns:
-    minmax(0, 0.9fr)
-    minmax(0, 1fr);
-
-  gap: 90px;
-
-  align-items: start;
-}
-
-.contact-intro h2 {
-  margin: 28px 0 24px;
-
-  font-size: clamp(38px, 5.2vw, 70px);
+  font-size: clamp(38px, 5.4vw, 72px);
 
   letter-spacing: -2.5px;
   line-height: 1.22;
 }
 
-.contact-description {
-  max-width: 470px;
+.contact-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  font-size: 16px;
-  line-height: 1.7;
+  gap: 36px;
+}
+
+.contact-bottom > p {
+  max-width: 520px;
 
   color: var(--muted);
+
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .contact-links {
@@ -1054,128 +1050,8 @@ figcaption {
   flex-wrap: wrap;
 
   gap: 8px;
-
-  margin-top: 26px;
 }
 
-
-/* =========================================================
-   CONTACT FORM
-========================================================= */
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-
-  gap: 22px;
-
-  padding-top: 6px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-
-  gap: 8px;
-}
-
-.form-field label {
-  font-size: 12px;
-  font-weight: 500;
-
-  color: var(--text);
-}
-
-.form-field input,
-.form-field textarea {
-  width: 100%;
-
-  padding: 12px 0;
-
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-
-  background: transparent;
-  color: var(--text);
-
-  font: inherit;
-  font-size: 15px;
-
-  outline: none;
-
-  transition:
-    border-color 140ms ease,
-    background-color 140ms ease;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  border-color: var(--text);
-}
-
-.form-field textarea {
-  min-height: 140px;
-
-  resize: vertical;
-}
-
-.contact-submit {
-  align-self: flex-start;
-
-  margin-top: 4px;
-}
-
-.contact-submit:disabled {
-  cursor: wait;
-
-  opacity: 0.6;
-}
-
-.contact-status {
-  min-height: 22px;
-}
-
-.contact-success,
-.contact-error {
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.contact-success {
-  color: var(--text);
-}
-
-.contact-error {
-  color: #8a2b20;
-}
-
-
-/* =========================================================
-   CONTACT RESPONSIVE
-========================================================= */
-
-@media (max-width: 780px) {
-  .contact-layout {
-    grid-template-columns: 1fr;
-
-    gap: 46px;
-  }
-}
-
-@media (max-width: 600px) {
-  .contact-intro h2 {
-    letter-spacing: -1.5px;
-  }
-
-  .contact-form {
-    gap: 20px;
-  }
-
-  .contact-links {
-    margin-top: 22px;
-  }
-}
 
 /* =========================================================
    FOOTER

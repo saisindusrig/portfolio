@@ -31,7 +31,7 @@ export const projects: Project[] = [
     category: 'Full-stack · Book discovery',
 
     shortDescription:
-      'Find a book, save it for later and keep track of your own ratings.',
+      'Search across multiple book sources, save favourites and keep track of your own ratings and reviews.',
 
     image: bookd,
 
@@ -39,7 +39,7 @@ export const projects: Project[] = [
       'BOOKD home page showing book search and a row of book covers',
 
     annotation:
-      'Search, save and organise books in one place.',
+      'Combines book data from Open Library and Google Books.',
 
     technologies: [
       'React',
@@ -50,9 +50,9 @@ export const projects: Project[] = [
     ],
 
     features: [
-      'Book search using external APIs',
-      'JWT and bcrypt authentication',
-      'Saved favourites and personal ratings',
+      'Open Library and Google Books API integration',
+      'Caching, deduplication and provider failure handling',
+      'JWT authentication, favourites, ratings and reviews',
     ],
 
     liveUrl:
@@ -62,7 +62,7 @@ export const projects: Project[] = [
       'https://github.com/saisindusrig/bookd',
 
     contribution:
-      'I built the React interface, Express API and MongoDB models for accounts, favourites and ratings.',
+      'I built the React frontend and Node.js/Express backend, including API result normalization, caching, authentication and MongoDB-backed user features.',
   },
 
   {
@@ -70,10 +70,10 @@ export const projects: Project[] = [
 
     title: '3D ShareSpace',
 
-    category: 'Full-stack · Asset sharing',
+    category: 'Full-stack · 3D asset sharing',
 
     shortDescription:
-      'Browse, upload and share free 3D assets.',
+      'A platform for uploading, browsing and downloading community-shared 3D models.',
 
     image: sharespace,
 
@@ -81,7 +81,7 @@ export const projects: Project[] = [
       '3D ShareSpace interface showing downloadable 3D models',
 
     annotation:
-      'Used by more than 50 real users.',
+      'Reached 50+ organic users after deployment.',
 
     technologies: [
       'React',
@@ -91,9 +91,9 @@ export const projects: Project[] = [
     ],
 
     features: [
-      'Asset browsing and downloads',
-      'Model and preview-image uploads',
-      'Authentication and asset management',
+      '3D model and preview-image uploads',
+      'Firebase Authentication, Firestore and Storage',
+      'Firestore and Storage security rules',
     ],
 
     liveUrl:
@@ -103,7 +103,7 @@ export const projects: Project[] = [
       'https://github.com/3Dsharespace/3d-model-sharing',
 
     contribution:
-      'I worked on the React interface and Firebase-backed flows for browsing, uploading and managing assets.',
+      'I built the React interface and Firebase-backed workflows for user accounts, model uploads, browsing and asset management.',
   },
 
   {
@@ -111,10 +111,10 @@ export const projects: Project[] = [
 
     title: 'Warrant',
 
-    category: 'Full-stack · Research tool',
+    category: 'Full-stack · Research workspace',
 
     shortDescription:
-      'A research board that connects claims with the evidence behind them.',
+      'A collaborative research board for connecting claims with supporting and challenging evidence.',
 
     image: warrant,
 
@@ -122,21 +122,22 @@ export const projects: Project[] = [
       'Warrant research board showing relationships between claims and evidence',
 
     annotation:
-      'Connect evidence as support, challenge or context.',
+      'Map claims, sources and evidence on an interactive canvas.',
 
     technologies: [
       'Next.js',
-      'React',
       'TypeScript',
       'React Flow',
       'MongoDB',
       'NextAuth',
+      'Vitest',
+      'Playwright',
     ],
 
     features: [
-      'Claims, sources and linked evidence',
-      'Saved canvas positions and comments',
-      'Owner, editor, commenter and viewer roles',
+      'Interactive claim and evidence canvas',
+      'Server-side role-based board permissions',
+      'Unit and end-to-end testing for core workflows',
     ],
 
     liveUrl:
@@ -146,6 +147,6 @@ export const projects: Project[] = [
       'https://github.com/saisindusrig/warrant-research-board',
 
     contribution:
-      'I built the research canvas, board permissions and server actions that save cards, evidence links and discussion.',
+      'I built the research canvas, authentication and board permissions, MongoDB-backed data flows and tests for core collaboration workflows.',
   },
 ];
