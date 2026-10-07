@@ -42,19 +42,7 @@
   --serif: 'Libre Baskerville', Georgia, serif;
 }
 
-.about-inline-link {
-  color: var(--text);
-  border-bottom: 1px solid currentColor;
 
-  transition:
-    background-color 140ms ease,
-    color 140ms ease;
-}
-
-.about-inline-link:hover {
-  background: var(--text);
-  color: var(--background);
-}
 /* =========================================================
    RESET
 ========================================================= */
@@ -82,16 +70,20 @@ a {
 }
 
 button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
 
-button {
-  font: inherit;
-}
-
 a:focus-visible,
 button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 4px;
@@ -135,6 +127,7 @@ dd {
 
 .skip-link {
   position: fixed;
+
   top: 12px;
   left: 12px;
 
@@ -227,6 +220,7 @@ nav a:hover,
 nav a:focus-visible {
   background: #e9e6dd;
   color: var(--text);
+
   border-color: var(--text);
 }
 
@@ -383,7 +377,6 @@ em {
   padding: 58px 0 76px;
 
   border-top: 1px solid var(--line);
-
 }
 
 .section-heading {
@@ -856,6 +849,22 @@ figcaption {
   margin-top: 24px;
 }
 
+.about-inline-link {
+  color: var(--text);
+
+  border-bottom: 1px solid currentColor;
+
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+.about-inline-link:hover,
+.about-inline-link:focus-visible {
+  background: var(--text);
+  color: var(--background);
+}
+
 
 /* =========================================================
    EXPERIENCE & SKILLS
@@ -1019,30 +1028,40 @@ figcaption {
   padding-top: 64px;
 }
 
+.contact-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(320px, 0.9fr);
+
+  gap: 90px;
+
+  align-items: start;
+}
+
+.contact-intro {
+  max-width: 620px;
+}
+
 .contact h2 {
-  margin: 28px 0 32px;
+  margin: 28px 0 26px;
 
   font-size: clamp(38px, 5.4vw, 72px);
+
+  font-weight: 400;
 
   letter-spacing: -2.5px;
   line-height: 1.22;
 }
 
-.contact-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  gap: 36px;
-}
-
-.contact-bottom > p {
-  max-width: 520px;
+.contact-description {
+  max-width: 500px;
 
   color: var(--muted);
 
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 .contact-links {
@@ -1050,6 +1069,112 @@ figcaption {
   flex-wrap: wrap;
 
   gap: 8px;
+
+  margin-top: 28px;
+}
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+
+  padding-top: 4px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.form-field label {
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+
+  color: var(--muted);
+}
+
+.form-field input,
+.form-field textarea {
+  display: block;
+
+  width: 100%;
+
+  padding: 12px 0;
+
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+
+  outline: none;
+
+  background: transparent;
+  color: var(--text);
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 400;
+
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
+}
+
+.form-field input:hover,
+.form-field textarea:hover {
+  border-bottom-color: #aaa69c;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-bottom-color: var(--text);
+}
+
+.form-field textarea {
+  min-height: 130px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+}
+
+.contact-submit {
+  align-self: flex-start;
+
+  margin-top: 5px;
+}
+
+.contact-submit:disabled {
+  opacity: 0.5;
+
+  cursor: wait;
+}
+
+.contact-status {
+  min-height: 24px;
+}
+
+.contact-success,
+.contact-error {
+  font-size: 13px;
+  line-height: 1.6;
+
+  color: var(--muted);
+}
+
+.contact-error {
+  color: #8e3d35;
 }
 
 
@@ -1142,6 +1267,10 @@ figcaption {
   .skills {
     padding-left: 28px;
   }
+
+  .contact-layout {
+    gap: 54px;
+  }
 }
 
 
@@ -1202,6 +1331,16 @@ figcaption {
       repeat(4, minmax(0, 1fr));
 
     gap: 20px;
+  }
+
+  .contact-layout {
+    grid-template-columns: 1fr;
+
+    gap: 50px;
+  }
+
+  .contact-form {
+    max-width: 620px;
   }
 }
 
@@ -1269,7 +1408,6 @@ figcaption {
 
   .section {
     padding: 38px 0 48px;
-
   }
 
   .section-heading {
@@ -1346,17 +1484,37 @@ figcaption {
     margin-bottom: 20px;
   }
 
+  .contact {
+    padding-top: 42px;
+  }
+
+  .contact-layout {
+    gap: 40px;
+  }
+
   .contact h2 {
-    margin-top: 24px;
+    margin: 24px 0 20px;
+
+    font-size: clamp(38px, 11vw, 54px);
 
     letter-spacing: -1.5px;
   }
 
-  .contact-bottom {
-    flex-direction: column;
-    align-items: flex-start;
+  .contact-description {
+    font-size: 15px;
+  }
 
-    gap: 24px;
+  .contact-links {
+    margin-top: 22px;
+  }
+
+  .contact-form {
+    gap: 20px;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    font-size: 16px;
   }
 
   .site-footer {
@@ -1374,20 +1532,31 @@ figcaption {
     width: calc(100% - 28px);
   }
 
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
   .wordmark {
     font-size: 17px;
   }
 
   nav {
-    gap: 3px;
+    width: 100%;
+
+    gap: 4px;
 
     font-size: 10px;
   }
 
   nav a {
-    min-height: 29px;
+    flex: 1;
 
-    padding: 5px 6px;
+    min-height: 31px;
+
+    padding: 5px 4px;
   }
 
   .button-link {
@@ -1402,6 +1571,14 @@ figcaption {
 
   .contact-links .button-link {
     flex: 1;
+  }
+
+  .contact-submit {
+    width: 100%;
+  }
+
+  .site-footer {
+    gap: 16px;
   }
 }
 
