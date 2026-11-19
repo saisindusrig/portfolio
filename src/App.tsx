@@ -84,7 +84,7 @@ const handleContactSubmit = async (
           <section className="profile-hero" aria-labelledby="intro-title">
             <div className="profile-coverline"><span className="wordmark">Sai Sindu Sri<span aria-hidden="true">.</span></span></div>
             <div className="hero-banner">
-              <p className="font-script">I make thoughtful websites <span aria-hidden="true">✳</span></p>
+              <p className="font-script">I make thoughtful websites <span aria-hidden="true">🖳</span></p>
             </div>
             <div className="profile-card">
               <img className="profile-avatar" src={portrait} alt="Sai Sindu Sri" />
