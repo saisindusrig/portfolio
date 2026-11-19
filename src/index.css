@@ -1611,8 +1611,8 @@ figcaption {
 .site-header nav a, nav a { font-family: var(--font-body); }
 .profile-hero { margin: 0; background: var(--surface); }
 .hero-banner { min-height: 210px; display: grid; place-items: center; background: var(--pink-banner); }
-.hero-banner p { color: #9b7185; font: 400 clamp(37px, 5.2vw, 58px)/1.15 var(--font-script); }
-.hero-banner span { font: 27px var(--font-body); vertical-align: middle; }
+.hero-banner p { max-width: 100%; padding: 0 20px; color: #9b7185; font: 400 clamp(30px, 5.2vw, 58px)/1.15 var(--font-script); white-space: nowrap; }
+.hero-banner span { font: clamp(17px, 2.3vw, 27px) var(--font-body); vertical-align: middle; }
 .profile-card { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 12px 24px; padding: 76px 34px 30px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .profile-avatar { position: absolute; top: -58px; left: 28px; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 6px solid white; background: var(--pink-soft); }
 .profile-details h1 { font: italic 500 28px/1.2 var(--font-italic); }
@@ -1625,7 +1625,6 @@ figcaption {
 .profile-stats { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 24px; padding-top: 15px; border-top: 1px solid #f1e9ee; color: var(--text-secondary); font-size: 11px; }
 .profile-stats strong { color: var(--text-primary); font-weight: 600; }
 .intro { display: none; }
-.profile-coverline { min-height: 62px; display: flex; align-items: center; padding: 0 24px; background: var(--background); border-bottom: 1px solid var(--border); }
 .profile-tabs { position: sticky; top: 0; z-index: 5; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface); border-bottom: 0; }
 .profile-tabs a { min-height: 62px; display: grid; place-items: center; border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: transparent; color: var(--text-secondary); font-size: 14px; transition: color .18s, background .18s; }
 .profile-tabs a:hover { background: transparent; color: var(--text-primary); border-color: transparent; }
@@ -1659,16 +1658,30 @@ figcaption {
 .section-heading h2 { font-weight: 500; }
 @media (max-width: 600px) {
   .page { width: calc(100% - 32px); }
-  .hero-banner { min-height: 160px; }
+  .hero-banner { min-height: 130px; overflow: hidden; }
+  .hero-banner p { padding-inline: 10px; font-size: clamp(23px, 6vw, 34px); letter-spacing: -.3px; }
   .profile-card { grid-template-columns: 1fr; padding: 68px 18px 20px; }
   .profile-avatar { left: 16px; width: 104px; height: 104px; top: -50px; }
   .profile-bio { font-size: 19px; }
   .profile-handle { flex-wrap: wrap; gap: 7px; font-size: 12px; }
   .profile-handle span { font-size: 13px; }
   .hero-contact { grid-row: 2; }
-  .profile-coverline { min-height: 54px; padding: 0 16px; }
   .profile-tabs a { min-height: 54px; font-size: 12px; }
   .profile-panel { min-height: 400px; padding: 30px 18px 40px; }
+  .profile-panel .section-heading h2 { font-size: clamp(28px, 8vw, 36px); }
+  .about-copy > p { font-size: 16px; line-height: 1.75; }
+  .project h3 { font-size: 23px; }
+  .project-description { font-size: 17px; }
+  .project-contribution { font-size: 14px; }
+  .site-footer { padding-inline: 18px; }
+}
+
+@media (max-width: 380px) {
+  .page { width: calc(100% - 24px); }
+  .hero-banner p { font-size: clamp(20px, 5.6vw, 23px); }
+  .hero-banner span { font-size: 15px; }
+  .profile-tabs a { font-size: 11px; }
+  .profile-panel { padding-inline: 14px; }
 }
 
 @media (max-width: 860px) {
