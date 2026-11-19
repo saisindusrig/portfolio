@@ -7,9 +7,18 @@ import {
 } from './data/portfolio';
 import { projects } from './data/projects';
 import portrait from './assets/sindu_pic.jpg';
+const Icon = ({ name }: { name: 'github' | 'linkedin' | 'mail' | 'pin' }) => {
+  const paths = {
+    github: <><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></>,
+    linkedin: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></>,
+    mail: <><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></>,
+    pin: <><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></>,
+  };
+  return <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
+};
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('about');
   const [formStatus, setFormStatus] = useState<
   'idle' | 'sending' | 'success' | 'error'
 >('idle');
@@ -47,48 +56,15 @@ const handleContactSubmit = async (
 };
 
   useEffect(() => {
-    const sections = ['projects', 'about', 'experience', 'contact']
-      .map(id => document.getElementById(id))
-      .filter((section): section is HTMLElement => section !== null);
-    const header = document.querySelector('.site-header');
-    const main = document.getElementById('main');
-
-    const updateActiveSection = () => {
-      const root = document.documentElement;
-      const maxScroll = root.scrollHeight - window.innerHeight;
-
-      // Short final sections cannot always reach the header before scrolling stops.
-      if (maxScroll > 0 && window.scrollY >= maxScroll - 2) {
-        setActiveSection(sections.at(-1)?.id ?? '');
-        return;
+    const onHashChange = () => {
+      const section = window.location.hash.slice(1);
+      if (['about', 'projects', 'experience', 'contact'].includes(section)) {
+        setActiveSection(section);
       }
-
-      const headerHeight = header?.getBoundingClientRect().height ?? 0;
-      const scrollPadding = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
-      const readingLine = Math.max(headerHeight + 16, scrollPadding) + 1;
-      const current = sections.find(section => {
-        const { top, bottom } = section.getBoundingClientRect();
-        return top <= readingLine && bottom > readingLine;
-      });
-      setActiveSection(current?.id ?? '');
     };
-
-    updateActiveSection();
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-    window.addEventListener('resize', updateActiveSection);
-
-   
-    const observer = typeof ResizeObserver !== 'undefined'
-      ? new ResizeObserver(updateActiveSection)
-      : undefined;
-    if (header) observer?.observe(header);
-    if (main) observer?.observe(main);
-
-    return () => {
-      window.removeEventListener('scroll', updateActiveSection);
-      window.removeEventListener('resize', updateActiveSection);
-      observer?.disconnect();
-    };
+    onHashChange();
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
   return (
@@ -101,89 +77,41 @@ const handleContactSubmit = async (
         {/* =====================================================
             HEADER
         ===================================================== */}
-        <header className="site-header">
-          <a className="wordmark" href="#top">
-            Sai Sindu Sri
-            <span aria-hidden="true">.</span>
-          </a>
-
-        <nav aria-label="Main navigation">
-  <a
-    href="#projects"
-    aria-current={
-      activeSection === 'projects' ? 'location' : undefined
-    }
-  >
-    Work
-  </a>
-
-  <a
-    href="#about"
-    aria-current={
-      activeSection === 'about' ? 'location' : undefined
-    }
-  >
-    About
-  </a>
-
-  <a
-    href="#experience"
-    aria-current={
-      activeSection === 'experience' ? 'location' : undefined
-    }
-  >
-    Experience
-  </a>
-
-  <a
-    href="#contact"
-    aria-current={
-      activeSection === 'contact' ? 'location' : undefined
-    }
-  >
-    Contact
-  </a>
-</nav>
-        </header>
-
         <main id="main">
           {/* =====================================================
               HERO
           ===================================================== */}
-          <section
-            className="intro"
-            aria-labelledby="intro-title"
-          >
-            <h1 id="intro-title">
-              Hi, I’m
-              <br />
-              <em>Sai Sindu Sri.</em>
-            </h1>
-
-            <div className="intro-bottom">
-              <div className="intro-copy">
-                <p>{profile.summary}</p>
-
-                <p className="intro-aside">
-                  I like understanding how the whole product
-                  works.
-                </p>
+          <section className="profile-hero" aria-labelledby="intro-title">
+            <div className="profile-coverline"><span className="wordmark">Sai Sindu Sri<span aria-hidden="true">.</span></span></div>
+            <div className="hero-banner">
+              <p className="font-script">I make thoughtful websites <span aria-hidden="true">✳</span></p>
+            </div>
+            <div className="profile-card">
+              <img className="profile-avatar" src={portrait} alt="Sai Sindu Sri" />
+              <div className="profile-details">
+                <h1 id="intro-title">Sai Sindu Sri</h1>
+                <p className="profile-handle">@SAISINDUSRI <span><Icon name="pin" /> {profile.location}</span></p>
+                <p className="profile-bio">I’m a web developer working with the MERN stack, building useful and considered digital experiences.</p>
               </div>
-
-              <a
-                className="button-link"
-                href="#projects"
-              >
-                View my work
-              </a>
+              <div className="hero-contact" aria-label="Contact links">
+                <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Icon name="linkedin" /></a>
+                <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Icon name="github" /></a>
+                <a href="#contact" aria-label="Contact form"><Icon name="mail" /></a>
+              </div>
             </div>
           </section>
+
+          <nav className="profile-tabs" aria-label="Profile navigation">
+            {[['projects', 'Work'], ['experience', 'Experience'], ['about', 'About'], ['contact', 'Contact']].map(([id, label]) => (
+              <a key={id} href={`#${id}`} className={activeSection === id ? 'is-active' : ''} aria-current={activeSection === id ? 'page' : undefined} onClick={() => setActiveSection(id)}>{label}</a>
+            ))}
+          </nav>
 
           {/* =====================================================
               PROJECTS
           ===================================================== */}
           <section
-            className="section"
+            className={`section profile-panel ${activeSection === 'projects' ? 'is-visible' : ''}`}
             id="projects"
             aria-labelledby="projects-title"
           >
@@ -208,7 +136,7 @@ const handleContactSubmit = async (
               ABOUT
           ===================================================== */}
           <section
-            className="section about"
+            className={`section about profile-panel ${activeSection === 'about' ? 'is-visible' : ''}`}
             id="about"
             aria-labelledby="about-title"
           >
@@ -219,20 +147,6 @@ const handleContactSubmit = async (
             </div>
 
             <div className="about-layout">
-              <figure className="portrait">
-                <img
-                  src={portrait}
-                  alt="Sai Sindu Sri"
-                  loading="lazy"
-                  width="400"
-                  height="400"
-                />
-
-                <figcaption>
-                  Based in Hyderabad, India.
-                </figcaption>
-              </figure>
-
               <div className="about-copy">
                 <p>I’m someone who likes understanding how things work. not just on the surface, but from the inside out.</p>
 <p>  That curiosity is what pulled me toward web development. I enjoy working across different parts of an application: designing the interface, understanding the logic behind the backend, working with data, and seeing how everything connects to create a complete product.
@@ -241,7 +155,7 @@ const handleContactSubmit = async (
       href= "https://medium.com/@saisindusrig"
       target="_blank"
       rel="noreferrer"
-      className="about-inline-link"
+      className="about-inline-link font-script"
     >
       here
     </a>.
@@ -264,7 +178,7 @@ const handleContactSubmit = async (
               EXPERIENCE & SKILLS
           ===================================================== */}
           <section
-            className="section background"
+            className={`section background profile-panel ${activeSection === 'experience' ? 'is-visible' : ''}`}
             id="experience"
             aria-labelledby="experience-title"
           >
@@ -359,7 +273,7 @@ const handleContactSubmit = async (
     CONTACT
 ===================================================== */}
 <section
-  className="section contact"
+  className={`section contact profile-panel ${activeSection === 'contact' ? 'is-visible' : ''}`}
   id="contact"
   aria-labelledby="contact-title"
 >
