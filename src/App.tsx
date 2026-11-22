@@ -88,7 +88,7 @@ const handleContactSubmit = async (
             <div className="profile-card">
               <img className="profile-avatar" src={portrait} alt="Sai Sindu Sri" />
               <div className="profile-details">
-                <h1 id="intro-title">Sai Sindu Sri</h1>
+                <h1 id="intro-title">Sindu G</h1>
                 <p className="profile-handle">@SAISINDUSRI <span><Icon name="pin" /> {profile.location}</span></p>
                 <p className="profile-bio">I’m a web developer working with the MERN stack, building useful and considered digital experiences.</p>
               </div>
@@ -154,7 +154,7 @@ const handleContactSubmit = async (
       href= "https://medium.com/@saisindusrig"
       target="_blank"
       rel="noreferrer"
-      className="about-inline-link font-script"
+      className="about-inline-link"
     >
       here
     </a>.
